@@ -1,0 +1,59 @@
+Process vs Thread: Thread same address space and multiple stacks
+• An indeterminate program consists of one or more race conditions; the output of the program varies from run to run, depending on which threads ran when. The outcome is thus not deterministic, something we DON'T usually expect from computer systems.
+
+synchronization primitives
+• To avoid these problems, threads should use some kind of 
+mutual exclusion primitives; I.E LOCKS doing so guarantees that only a single thread ever enters a critical section, thus avoiding races, and resulting in deterministic program outputs.
+
+OS THREADS : RETURNS 0 if call completed sucessfully. Other = Fail
+Thread has shared address space and global with rest of process. Each thread has it's own PC, Registers, Stack, and State
+Thread control blocks -> store the sate of each thread of a process
+- Address space remains the same : Add multiple stacks called THREAD-LOCAL storage in the address space. 
+
+- WHY? 
+1) Parallelism (have each thread execute a portion of the work)
+2) AND to avoid blocking program progress to slow I/O(Can have one thread wait, while scheduler can switch to other threads which can do some work. 
+
+- Deadlock -> situation where more than one process is blocked because it is holding a resource and also requires a resource held by others. 
+- Critical section -> section of code that acceses a shared resource and must not be executed by more than one thread concurrently
+- Race condition -> two or more threads try to access the same resource at the same time, with some bad timing with the context switches -> indeterminate program AVOID w/LOCKS
+    (USE DISASSEMBLER on an executable to see binary) 
+      prompt>  objdump -d main > dump.d [TO A FILE]
+- Context switch -> changes in which thread is running can mess up the data by switching at a bad time
+- Mutual exclusion primitives -> prevents multiple threads from accessing the same shared resource at the same time -> Deterministic
+- Atomicity -> Running without any interruption (run atomically)
+Creating and Joining Threads
+- pthread_create(*thread, *attribute, *(*start_routine)(void*) ,*arg);
+    - void *mythread(void *arg);
+    - int rc = pthread_create(&p, NULL, mythread, &agrs);
+    - pthread_exit();
+- pthread_join()[Waits for a thread to complete]
+
+LOCKS
+- int pthread_mutex_lock(pthread_mutex_t *mutex);
+- int pthread_mutex_unlock(pthread_mutex_t *mutex);
+- pthread_mutex_destroy();
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+OR dynamically
+      int rc = pthread_mutex_init(&lock, NULL);
+      assert(rc == 0); // always check success! // make a wrapper function
+      pthread_mutex_lock(&lock);
+Condition Variables: 
+int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex);
+int pthread_cond_signal(pthread_cond_t *cond);
+EX: pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+Pthread_mutex_lock(&lock);
+while (ready == 0)
+   Pthread_cond_wait(&cond, &lock);
+Pthread_mutex_unlock(&lock);
+TO WAKE A THREAD
+Pthread_mutex_lock(&lock);
+ready = 1;
+Pthread_cond_signal(&cond);
+Pthread_mutex_unlock(&lock);
+NOTES about waking a thread
+1) Avoid race conditions by having the lock held when modfying global
+2) wait realises the lock when putting caller to sleep. Gets it back before returning from being woken
+3) Waiting thread checks condition in a while-loop
+    Waking up is a hint that something changed. NOT A FACT!!!!!!!!

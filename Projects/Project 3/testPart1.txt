@@ -1,0 +1,61 @@
+// Testing with p3_2-testin.txt input
+student@cs2324:~/project_3$ ./memory_manager.out 
+Instruction? 0,map,0,0
+Put page table for PID 0 into physical frame 0
+Mapped virtual address 0 (page 0) into physical frame 1
+Instruction? 0,load,16,NA
+No mapping for process 0 virtual address 16
+Instruction? 0,load,14,5
+Incorrectly formatted instruction.
+Value should be NA for the load instruction.
+Instruction? 0,load,14,NA
+The value 0 is virtual address 14 (physical address 30)
+Instruction? 0,map,10,0
+Error: virtual page 0 already mapped with rw_bit = 0
+Instruction? 0,store,48,23
+No mapping for process 0 virtual address 48
+Instruction? 0,store,15,255
+Error: writes are not allowed to page 1
+Instruction? 9,something,78,3
+Invalid Process Id.  Process Id must be in range 0-3.
+Instruction? 0,map,16,1
+updating evicted thing...: 0
+Evict memory page 1 out to disk page 0
+Mapped virtual address 16 (page 1) into physical frame 1
+Instruction? 0,store,16,256
+Stored value 0 at virtual address 16 (physical address 16)
+
+//Testing with example from project_3 doc. 
+student@cs2324:~/project_3$ ./memory_manager.out 
+Instruction? 0,map,0,1
+Put page table for PID 0 into physical frame 0
+Mapped virtual address 0 (page 0) into physical frame 1
+Instruction? 0,store,12,24
+Stored value 24 at virtual address 12 (physical address 28)
+Instruction? 0,load,12,0
+Incorrectly formatted instruction.
+Value should be NA for the load instruction.
+Instruction? 0,load,12,NA
+The value 24 is virtual address 12 (physical address 28)
+Instruction? 
+
+// Demostrating scenarios with illegal instructions
+student@cs2324:~/project_3$ ./memory_manager.out 
+Instruction? 
+Incorrectly formatted instruction.
+Correct format is: process_id,instruction_type,virtual_address,value
+Instruction? 0,map,2,1000
+Invalid value for map instruction. Value must be 0 or 1.
+Instruction? 0,map,2,1
+Put page table for PID 0 into physical frame 0
+Mapped virtual address 2 (page 0) into physical frame 1
+Instruction? 0,store,12,255
+Stored value 255 at virtual address 12 (physical address 28)
+Instruction? 0,store,13,256
+Stored value 0 at virtual address 13 (physical address 29)
+Instruction? 0,load,12,45
+Incorrectly formatted instruction.
+Value should be NA for the load instruction.
+Instruction? 0,load,12,NA
+The value 255 is virtual address 12 (physical address 28)
+Instruction? ^C

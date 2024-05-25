@@ -1,0 +1,153 @@
+student@cs2324:~/project_3$ ./memory_manager.out 
+Instruction? 0,map,0,1
+Put page table for PID 0 into physical frame 0
+Mapped virtual address 0 (page 0) into physical frame 1
+Instruction? 0,map,15,1
+Error: virtual page 0 already mapped with rw_bit = 1
+Instruction? 0,map,16,1
+Mapped virtual address 16 (page 1) into physical frame 2
+Instruction? 0,map,32,0
+Mapped virtual address 32 (page 2) into physical frame 3
+Instruction?  0,store,35,237
+Error: writes are not allowed to page 3
+Instruction?  0,store,19,255
+Stored value 255 at virtual address 19 (physical address 35)
+Instruction? 0,load,19,NA
+The value 255 is virtual address 19 (physical address 35)
+Instruction? 1,map,19,1
+Swapped frame 0 out to disk at swap slot 0
+Put page table for PID 1 into physical frame 0
+updating evicted idx...: 0
+Swapped frame 1 out to disk at swap slot 1
+Mapped virtual address 19 (page 1) into physical frame 1
+Instruction? 1,map,5,1
+updating evicted idx...: 4
+Swapped frame 2 out to disk at swap slot 2
+Mapped virtual address 5 (page 0) into physical frame 2
+Instruction? 2,map,63,1
+updating evicted idx...: 8
+Swapped frame 3 out to disk at swap slot 3
+Put page table for PID 2 into physical frame 3
+Swapped frame 0 out to disk at swap slot 4
+Mapped virtual address 63 (page 3) into physical frame 0
+Instruction? 1,store,5,158
+updating evicted idx...: 68
+Swapped frame 1 out to disk at swap slot 5
+Swapped disk page 4 to memory page 1
+Stored value 158 at virtual address 5 (physical address 37)
+Instruction? 1,load,5,NA
+The value 158 is virtual address 5 (physical address 37)
+Instruction? 0,load,19,NA
+updating evicted idx...: 16
+Swapped frame 2 out to disk at swap slot 4
+Swapped disk page 0 to memory page 2
+Swapped frame 3 out to disk at swap slot 0
+The value 255 is virtual address 19 (physical address 51)
+Instruction? 2,store,48,1
+updating evicted idx...: 0
+Swapped frame 0 out to disk at swap slot 2
+Swapped disk page 0 to memory page 0
+Stored value 1 at virtual address 48 (physical address 0)
+Instruction? 3,map,32,1
+Swapped frame 1 out to disk at swap slot 0
+Put page table for PID 3 into physical frame 1
+Swapped frame 2 out to disk at swap slot 6
+Mapped virtual address 32 (page 2) into physical frame 2
+Instruction? 1,store,7,15
+updating evicted idx...: 100
+Swapped frame 3 out to disk at swap slot 7
+Swapped disk page 0 to memory page 3
+Swapped frame 0 out to disk at swap slot 0
+Stored value 15 at virtual address 7 (physical address 7)
+Instruction? 3,store,40,206
+Stored value 206 at virtual address 40 (physical address 40)
+Instruction? 1,load,7,NA
+The value 15 is virtual address 7 (physical address 7)
+Instruction? 3,load,40,NA
+The value 206 is virtual address 40 (physical address 40)
+Instruction? ^C
+
+
+
+
+
+student@cs2324:~/project_3$ ./memory_manager.out 
+Instruction? 0,map,0,0
+Put page table for PID 0 into physical frame 0
+Mapped virtual address 0 (page 0) into physical frame 1
+Instruction? 0,store,7,255
+Error: writes are not allowed to page 1
+Instruction? 0,map,0,1
+Updating permissions for virtual page 0
+Instruction? 0,store,7,255
+Stored value 255 at virtual address 7 (physical address 23)
+Instruction? 0,load,7,0
+Incorrectly formatted instruction.
+Value should be NA for the load instruction.
+Instruction? 0,load,7,NA
+The value 255 is virtual address 7 (physical address 23)
+Instruction? 0,map,10,1
+Error: virtual page 0 already mapped with rw_bit = 1
+Instruction? 0,map,16,1
+Mapped virtual address 16 (page 1) into physical frame 2
+Instruction? 0,map,32,1
+Mapped virtual address 32 (page 2) into physical frame 3
+Instruction? 1,map,0,0
+Swapped frame 0 out to disk at swap slot 0
+Put page table for PID 1 into physical frame 0
+updating evicted idx...: 0
+Swapped frame 1 out to disk at swap slot 1
+Mapped virtual address 0 (page 0) into physical frame 1
+Instruction? 0,load,7,0
+Incorrectly formatted instruction.
+Value should be NA for the load instruction.
+Instruction? 0,load,7,NA
+updating evicted idx...: 4
+Swapped frame 2 out to disk at swap slot 2
+Swapped disk page 0 to memory page 2
+updating evicted idx...: 40
+Swapped frame 3 out to disk at swap slot 0
+The value 255 is virtual address 7 (physical address 55)
+Instruction? 
+Incorrectly formatted instruction.
+Correct format is: process_id,instruction_type,virtual_address,value
+Instruction? ^C
+
+student@cs2324:~/project_3$ ./memory_manager.out 
+Instruction? 
+Incorrectly formatted instruction.
+Correct format is: process_id,instruction_type,virtual_address,value
+Instruction? 0,map,0,1
+Put page table for PID 0 into physical frame 0
+Mapped virtual address 0 (page 0) into physical frame 1
+Instruction? 1,map,2,12
+Invalid value for map instruction. Value must be 0 or 1.
+Instruction? 1,map,2,1
+Put page table for PID 1 into physical frame 2
+Mapped virtual address 2 (page 0) into physical frame 3
+Instruction? 2,map,16,1
+Swapped frame 0 out to disk at swap slot 0
+Put page table for PID 2 into physical frame 0
+updating evicted idx...: 0
+Swapped frame 1 out to disk at swap slot 1
+Mapped virtual address 16 (page 1) into physical frame 1
+Instruction? 0,store,12,1
+Swapped frame 2 out to disk at swap slot 2
+Swapped disk page 0 to memory page 2
+updating evicted idx...: 32
+Swapped frame 3 out to disk at swap slot 0
+Stored value 1 at virtual address 12 (physical address 60)
+Instruction?  0,load,12,NA
+The value 1 is virtual address 12 (physical address 60)
+Instruction? 1,store,12,49
+Swapped frame 0 out to disk at swap slot 1
+Swapped disk page 2 to memory page 0
+updating evicted idx...: 20
+Swapped frame 1 out to disk at swap slot 2
+Stored value 49 at virtual address 12 (physical address 28)
+Instruction? 1,load,12,49
+Incorrectly formatted instruction.
+Value should be NA for the load instruction.
+Instruction? 1,load,12,NA
+The value 49 is virtual address 12 (physical address 28)
+Instruction? ^C

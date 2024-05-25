@@ -1,0 +1,38 @@
+Explanation of How our solution avoids depriving the different sports player types of the field::::::::                       Alex Li Eric Li
+
+
+To Ensure Fairness(Our Intepretation of Fairness for this project):
+
+    - Our Implemtation of fairness of the games is to make sure that all the games have a chance to run. We made each game run twice. 
+
+    - As such, we never would have a game that completlly monopolizes the field, not allowing any other games to run. 
+
+    - If we were to not implement this fairbness component to the game, rugby would be a big problem as it would just keep on running until it gets to size 30, then again, and again 
+
+    - As such, It is important that we Control the number of rounds a game can play, particularrly for Rugby, which is what we did.
+
+
+To avoid depriving different sports player types of the field: 
+    - The use of mutexes (baseballMutex, footballMutex, rugbyMutex) ensures that only one thread can access and modify the player count variables at a time for each sport.
+      This prevents race conditions and ensures that each sport type gets fair access to the shared resources. 
+
+    - Before a game starts or a player joins the field, we implemented conditional checks based on the current player counts. 
+      An example is that In the baseball case, the game starts when there are 18 baseball players. 
+      These checks ensure that a game doesn't start prematurely and that each sport type has an equal opportunity to accumulate players.
+
+    - The introduction of totalRugbyPlayerCount ensures that the rugby game doesn't start until the required number of rugby players (pairs) is reached. This prevents the rugby game 
+      from starting prematurely and monopolizing resources, as the total count needs to reach the specified limit.
+
+    - The leaveField function is called within each sport type's logic after the game is played.
+      This ensures that players leave the field after their respective games, preventing any one sport from monopolizing the field indefinitely.
+
+    - The randomDelay function introduces a random delay before players leave the field or the game starts. This randomness prevents a specific sport 
+      from consistently being favored or starved of resources, adding a level of unpredictability to the simulation.
+
+    - Counts such as currentRugbyPlayerNumber and totalRugbyPlayerCount are reset after a rugby game is played. This ensures that each game starts fresh with the correct player 
+      counts and prevents any carryover effects from the previous game.
+
+
+
+   
+  
